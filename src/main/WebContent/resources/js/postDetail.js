@@ -20,7 +20,7 @@ function btnDelete(num) {
 		data: { 'id': num },
 		success: function (result) { // 결과 성공 콜백함수
 			console.log(result);
-			alert('게시글이 삭제되었습니다.');
+			alertModal('게시글이 삭제되었습니다.');
 			window.location.href = result;
 		},
 		error: function (jqXHR, textStatus, errorThrown) { // 결과 에러 콜백함수
@@ -58,7 +58,7 @@ function btnInsert(num) {
 			afterReplyInsert(data.nickname, repl_content, data.writer, data.time, data.id)
 		},
 		error: () => {
-			alert('등록 실패')
+			alertModal('등록 실패')
 		}
 	})
 }
@@ -103,7 +103,7 @@ function btnDeleteReply(num) {
 		},
 		success: () => location.reload(),
 		error: () => {
-			alert('삭제 실패')
+			alertModal('삭제 실패')
 		}
 	})
 
@@ -138,7 +138,7 @@ function btnInsertReply(num) {
 			/* location.reload(); */
 		},
 		error: () => {
-			alert('등록 실패')
+			alertModal('등록 실패')
 		}
 	})
 }

@@ -125,5 +125,6 @@ defer></script>
 
 		</div>
 	</div>
+	<script src="${pageContext.request.contextPath}/resources/js/notifyModal.js"></script>
 </body>
 </html>
