@@ -18,7 +18,7 @@ function initModal() {
          <label style="width: 100%; font-weight: 500;" id="notifyContent"></label>
      </div>
      <div class="modal-footer">
-       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmBtn">확인</button>
      </div>
     </div>
   </div>
@@ -33,4 +33,11 @@ function alertModal(content) {
   }
   document.querySelector("label#notifyContent").textContent = content;
   notifyModal.show();
+}
+
+function registerAlertModal(content, url) {
+  alertModal(content);
+  $("#confirmBtn").click(function (){
+    window.location = url;
+  })
 }

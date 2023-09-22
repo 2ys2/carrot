@@ -134,11 +134,10 @@ function uploadHandler() {
         }
     }).done((result) => {
         if (result === "/page/itemRegister#") {
-            alert("문제 발생, 관리자에 문의 바람");
+            alertModal("문제 발생, 관리자에 문의 바람");
         } else {
-            alert("등록 성공");
+            registerAlertModal("등록 완료", result);
         }
-        window.location = result;
     })
 }
 

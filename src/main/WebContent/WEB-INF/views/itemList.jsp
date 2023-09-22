@@ -35,10 +35,10 @@
     <div class="section-header">
         <div class="search">
             <c:if test="${searchInfo == null}">
-                <h3 class="curr-location">${user.nickname}님 동네(${user.loc1} ${user.loc2} ${user.loc3}) 의 물품!!</h3>
+                <h3 class="curr-location">${user.nickname}님 동네 물품</h3>
             </c:if>
             <c:if test="${searchInfo != null}">
-                <h3 class="curr-location">검색 결과 : ${searchInfo.loc1} ${searchInfo.loc2} ${searchInfo.loc3} 물품~</h3>
+                <h3 class="curr-location">검색 결과 : </h3>
             </c:if>
             <div class="search-location">
                 <select class="form-select" id="loc1" name="loc1" onchange="changeLoc1Select()">
@@ -97,7 +97,7 @@
             </div>
             <div class="search-keyword">
                 <select class="form-select" id="categorySelect" name="categorySelect">
-                    <option value="0" ${searchInfo == null ? "selected" : ""}></option>
+                    <option value="0" ${searchInfo == null ? "selected" : ""}>전체검색</option>
                     <option value="1" ${searchInfo.category_id == 1 ? "selected" : ""}>디지털기기</option>
                     <option value="2" ${searchInfo.category_id == 2 ? "selected" : ""}>가구/인테리어</option>
                     <option value="3" ${searchInfo.category_id == 3 ? "selected" : ""}>유아동</option>

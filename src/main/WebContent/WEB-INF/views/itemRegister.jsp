@@ -6,6 +6,8 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7551008ffbd30aac5abaffdcc5a33d7f&libraries=services"></script>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -100,7 +102,7 @@
                         <option ${location3 == user.loc3 ? 'selected' : ''} value="${location3}">${location3}</option>
                     </c:forEach>
                 </select>
-                <button class="btn orange-btn" id="currBtn">현재위치</button>
+                <button class="btn orange-btn" id="currBtn" onclick="currLocBtnHandler()">현재위치</button>
             </div>
 
 
@@ -122,5 +124,7 @@
 
     </div>
 </div>
+<script src="${pageContext.request.contextPath}/resources/js/kakaoGeocoder.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/notifyModal.js"></script>
 </body>
 </html>
