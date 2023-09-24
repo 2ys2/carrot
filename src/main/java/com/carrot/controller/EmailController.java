@@ -26,7 +26,6 @@ public class EmailController {
 	public String emailAuth(@RequestParam String email) {		
 		Random random = new Random();
 		int checkNum = random.nextInt(888889) + 111111;
-		
         String setFrom = "ssobuilt@gmail.com";
         String toMail = email;
         String title = "당근나라 인증 관련 이메일 입니다.";

@@ -111,3 +111,7 @@ div.input {
   padding: 12px;
   align-items: center;
 }
+
+.container input::placeholder {
+  font-size: 12px;
+}

@@ -28,7 +28,8 @@ pageEncoding="UTF-8"%>
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
           <div class="card border-0 shadow rounded-3 my-5">
             <div class="card-body p-4 p-sm-5">
-              <h5 class="card-title text-center mb-5 fw-light fs-5 btn-loginType">로그인</h5>
+              <!-- <h5 class="card-title text-center mb-5 fw-light fs-5 btn-loginType" img src="../resources/image/carrotLogin.png"></h5> -->
+              <div class="card-title loginLogo-div" ><img class="loginLogo" src="../resources/image/carrotLogin4.png"></div>
               <form action="/login" method="post">
                 <div class="form-floating mb-3">
                   <input
@@ -58,7 +59,9 @@ pageEncoding="UTF-8"%>
                     value="${_csrf.token}"
                   />
                 </div>
-                <div class="form-check mb-3 div-finder">
+
+                <div class="mb-3 div-finder">
+                  <span class = "userInfoCheck"> ${param.fail == true? '※ 계정 정보를 확인하여 주세요.':''} </span>
                   <!-- <button class="btn-finder" id="idFind">아이디 찾기</button> -->
                   <input
                     type="button"
@@ -181,6 +184,12 @@ pageEncoding="UTF-8"%>
                 </button>
               </div>
             </div>
+            <div class="input-row-hidden">
+              <div class="label idModal_label"></div>
+              <div class="input">
+                <span id="idFinderModal_reqmsg"></span>
+              </div>
+            </div>
             <div class="input-row">
               <div class="label idModal_label">인증번호:</div>
               <div class="input">
@@ -266,6 +275,12 @@ pageEncoding="UTF-8"%>
                 <button class="btn orange-btn" id="pwdFinderModal_req">
                   인증요청
                 </button>
+              </div>
+            </div>
+            <div class="input-row-hidden">
+              <div class="label idModal_label"></div>
+              <div class="input">
+                <span id="pwdFinderModal_reqmsg"></span>
               </div>
             </div>
             <div class="input-row">
@@ -376,6 +391,6 @@ pageEncoding="UTF-8"%>
         </div>
       </div>
     </div>
-    
+    <script src="${pageContext.request.contextPath}/resources/js/notifyModal.js"></script>
   </body>
 </html>

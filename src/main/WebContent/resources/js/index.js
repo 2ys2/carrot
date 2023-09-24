@@ -83,12 +83,12 @@ $("#newSnsIdModify").click(function () {
   var nicknameTest = /^[가-힣a-zA-Z0-9]{3,7}$/;
 
   if (!nicknameTest.test(nickname)) {
-    alert("닉네임은 한글, 영어, 숫자로 3~7글자로 입력 가능합니다.");
+    alertModal("닉네임은 한글, 영어, 숫자로 3~7글자로 입력 가능합니다.");
     $("#nickname").focus();
     return false;
   }
   if (loc1 === "도시 선택" || loc2 === "지역 선택" || loc3 === "동네 선택") {
-    alert("위치를 지정해 주세요.");
+    alertModal("위치를 지정해 주세요.");
     return false;
   }
 
@@ -101,14 +101,14 @@ $("#newSnsIdModify").click(function () {
     contentType: "application/x-www-form-urlencoded",
     success: function (cnt) {
       if (cnt > 0) {
-        alert("이미 존재하는 닉네임입니다.");
+        alertModal("이미 존재하는 닉네임입니다.");
         $("#nickname").focus();
       } else {
         newSnsUpdate();
       }
     },
     error: function (error) {
-      alert("닉네임을 재입력해주세요.");
+      alertModal("닉네임을 재입력해주세요.");
     },
   });
 
@@ -127,7 +127,6 @@ $("#newSnsIdModify").click(function () {
       loc3: loc3,
     };
     data2[tokenInput.attr("name")] = tokenInput.val();
-    console.log("데이터2:" + data2);
     $.ajax({
       url: "/api/myPage/updateinfo",
       type: "POST",
@@ -139,10 +138,10 @@ $("#newSnsIdModify").click(function () {
       },
       success: (result) => {
         $("#newSnsIdModal").modal("hide");
-        alert("수정이 완료 되었습니다");
+        alertModal("수정이 완료 되었습니다");
       },
       error: () => {
-        alert("다시 시도해주세요.");
+        alertModal("다시 시도해주세요.");
       },
     });
   }

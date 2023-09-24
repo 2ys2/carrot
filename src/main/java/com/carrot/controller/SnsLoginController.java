@@ -78,7 +78,7 @@ public class SnsLoginController {
 		JSONObject jsonObj = (JSONObject) obj;
 		// 3. 데이터 파싱
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
-
+		
 		String id = (String) response_obj.get("id");
 		String name = (String) response_obj.get("name");
 		String email = (String) response_obj.get("email");

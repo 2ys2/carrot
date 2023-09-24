@@ -7,12 +7,12 @@ $("#btn-idCheck").click(function (e) {
   var idTest = /^[a-zA-Z0-9]{6,12}$/;
 
   if (!idTest.test(username)) {
-    alert("아이디는 영어와 숫자 6~12자 사용가능합니다.");
+    alertModal("아이디는 영어와 숫자 6~12자 사용가능합니다.");
     $("#id").focus();
     return false;
   }
   if (username.search(/\s/) !== -1) {
-    alert("아이디에는 공백이 들어갈 수 없습니다.");
+    alertModal("아이디에는 공백이 들어갈 수 없습니다.");
   } else {
     if (username.trim().length !== 0) {
       $.ajax({
@@ -24,20 +24,20 @@ $("#btn-idCheck").click(function (e) {
         contentType: "application/x-www-form-urlencoded",
         success: function (cnt) {
           if (cnt > 0) {
-            alert("해당 아이디는 이미 가입되어 있습니다.");
+            alertModal("해당 아이디는 이미 가입되어 있습니다.");
             $("#id").focus();
           } else {
-            alert("사용 가능한 아이디입니다.");
+            alertModal("사용 가능한 아이디입니다.");
             $("#nickname").focus();
             $("#idStatus").val("1");
           }
         },
         error: function (error) {
-          alert("아이디를 재입력해주세요.");
+          alertModal("아이디를 재입력해주세요.");
         },
       });
     } else {
-      alert("아이디를 입력해주세요.");
+      alertModal("아이디를 입력해주세요.");
     }
   }
 });
@@ -51,12 +51,12 @@ $("#btn-nicCheck").click(function (e) {
   var nicknameTest = /^[가-힣a-zA-Z0-9]{3,7}$/;
 
   if (!nicknameTest.test(nickname)) {
-    alert("닉네임은 한글, 영어, 숫자로 3~7글자로 입력 가능합니다.");
+    alertModal("닉네임은 한글, 영어, 숫자로 3~7글자로 입력 가능합니다.");
     $("#nickname").focus();
     return false;
   }
   if (nickname.search(/\s/) !== -1) {
-    alert("닉네임에는 공백이 들어갈 수 없습니다.");
+    alertModal("닉네임에는 공백이 들어갈 수 없습니다.");
   } else {
     if (nickname.trim().length !== 0) {
       $.ajax({
@@ -68,26 +68,25 @@ $("#btn-nicCheck").click(function (e) {
         contentType: "application/x-www-form-urlencoded",
         success: function (cnt) {
           if (cnt > 0) {
-            alert("해당 닉네임은 이미 가입되어 있습니다.");
+            alertModal("해당 닉네임은 이미 가입되어 있습니다.");
             //$("#submit").attr("disabled", "disabled");
             $("#nickname").focus();
           } else {
-            alert("사용 가능한 닉네임입니다.");
+            alertModal("사용 가능한 닉네임입니다.");
             //$("#submit").removeAttr("disabled");
             $("#password").focus();
             $("#nicknameStatus").val("1");
           }
         },
         error: function (error) {
-          alert("닉네임을 재입력해주세요.");
+          alertModal("닉네임을 재입력해주세요.");
         },
       });
     } else {
-      alert("닉네임을 입력해주세요.");
+      alertModal("닉네임을 입력해주세요.");
     }
   }
 });
-
 $("#btn-emailCheck").click(function (e) {
   e.preventDefault();
 
@@ -97,7 +96,7 @@ $("#btn-emailCheck").click(function (e) {
   data[tokenInput.attr("name")] = tokenInput.val();
 
   if (email.search(/\s/) !== -1 || email.trim().length === 0) {
-    alert("이메일에는 공백이 들어갈 수 없습니다.");
+    alertModal("이메일에는 공백이 들어갈 수 없습니다.");
   } else {
     $.ajax({
       async: true,
@@ -108,17 +107,18 @@ $("#btn-emailCheck").click(function (e) {
       contentType: "application/x-www-form-urlencoded",
       success: function (cnt) {
         if (cnt > 0) {
-          alert("해당 이메일은 이미 가입되어있습니다.");
+          alertModal("해당 이메일은 이미 가입되어있습니다.");
           $("#eamil").focus();
         } else {
           $("#modal-text-email").val(email);
           $("#res-authnum-text").val("");
           $("#emailCertifyModal").modal("show");
+          $("#emailModal_num").val("");
           sendEmail();
         }
       },
       error: function (error) {
-        alert("이메일을 재입력해주세요.");
+        alertModal("이메일을 재입력해주세요.");
       },
     });
   }
@@ -136,11 +136,11 @@ function sendEmail() {
     url: "/api/sendemail",
     data,
     success: function (data) {
-      alert("인증번호가 발송되었습니다.");
+      $("#emailModal_msg").html("※ 인증번호가 전송되었습니다.");
       email_auth_cd = data;
     },
     error: function (data) {
-      alert("메일 발송에 실패했습니다.");
+      $("#emailModal_msg").html("※ 인증번호 전송에 실패하였습니다.");
     },
   });
 
@@ -150,7 +150,7 @@ function sendEmail() {
       eamil_auth_compl = false;
     }
     if ($("#emailModal_num").val() === email_auth_cd) {
-      alert("인증이 완료되었습니다.");
+      alertModal("인증이 완료되었습니다.");
       $("#email").prop("readonly", true);
       $("#email").attr("style", "background-color:#80808021;");
       $("#emailCertifyModal").modal("hide");
@@ -244,16 +244,27 @@ $("#nickname").change(function () {
     $("#nicknameStatus").val("0");
   }
 });
+
 function emailRewrite() {
+  var confirmData = false;
   if ($("#email").prop("readonly") === true) {
-    if (confirm("수정하시면 재인증이 필요합니다\n수정하시겠습니까?")) {
-      $("#email").prop("readonly", false);
-      $("#email").attr("style", "background-color:#fff;");
-      $("#emailStatus").val("0");
-    } else {
-      alert("취소");
-    }
+    pleaaseAlertModal("수정하시면 재인증이 필요합니다. 수정하시겠습니까?");
   }
+}
+
+function pleaaseAlertModal(content) {
+  document.querySelector("label#modalContent").textContent = content;
+  $("#confirmModal").modal("show");
+
+  $("#cfmodal_confirmBtn").click(function () {
+    $("#email").prop("readonly", false);
+    $("#email").attr("style", "background-color:#fff;");
+    $("#emailStatus").val("0");
+    $("#confirmModal").modal("hide");
+  });
+  $("#cfmodal_cancelBtn").click(function () {
+    $("#confirmModal").modal("hide");
+  });
 }
 
 $("#btn-signUp").click(function (e) {
@@ -263,38 +274,38 @@ $("#btn-signUp").click(function (e) {
     /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,12}$/;
 
   if ($("#idStatus").val() === "0") {
-    alert("아이디 중복 확인을 해주세요.");
+    alertModal("아이디 중복 확인을 해주세요.");
     return false;
   }
   if ($("#nicknameStatus").val() === "0") {
-    alert("닉네임 중복 확인을 해주세요.");
+    alertModal("닉네임 중복 확인을 해주세요.");
     return false;
   }
   if (!passwordTest.test(passwordInput)) {
-    alert(
+    alertModal(
       "비밀번호는 영어, 숫자, 특수문자 1개 이상씩 사용하여 6~12자로 적어주세요."
     );
     return false;
   }
   if ($("#password").val() !== $("#passwordChk").val()) {
-    alert("비밀번호 확인을 해주세요.");
+    alertModal("비밀번호 확인을 해주세요.");
     return false;
   }
   if ($("#emailStatus").val() === "0") {
-    alert("이메일 인증을 해주세요.");
+    alertModal("이메일 인증을 해주세요.");
     return false;
   }
 
   if (
-    $("#loc1").val() === null ||
-    $("#loc2").val() === null ||
-    $("#loc3").val() === null
+    $("#loc1").val() === '도시 선택' ||
+    $("#loc2").val() === '지역 선택' ||
+    $("#loc3").val() === '동네 선택'
   ) {
-    alert("위치를 지정해 주세요.");
+    alertModal("위치를 지정해 주세요.");
     return false;
   }
   if ($("#agreement").is(":checked") === false) {
-    alert("개인정보 수집에 동의해 주세요.");
+    alertModal("개인정보 수집에 동의해 주세요.");
     return false;
   }
 
@@ -325,15 +336,18 @@ $("#btn-signUp").click(function (e) {
     dataType: "json",
     contentType: "application/x-www-form-urlencoded",
     success: function (result) {
-      if (result === 2) {
-        alert("회원가입에 성공했습니다.\n로그인 창으로 돌아갑니다.");
-        location.href = "/page/login";
+      if (result === true) {
+        registerAlertModal(
+          "회원가입에 성공했습니다.\n로그인 창으로 돌아갑니다.",
+          "/page/login"
+        );
       }
-      alert("다시 시도해주세요.");
-      location.href = "page/login";
+      if (result !== true) {
+        alertModal(result + "다시 시도해주세요.");
+      }
     },
     error: function (error) {
-      alert("회원가입을 다시 시도해 주세요.");
+      alertModal("회원가입을 다시 시도해 주세요.");
     },
   });
 });

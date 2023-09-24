@@ -120,7 +120,6 @@ public class KakaoLoginService {
 			userInfo.put("id", id);
 			userInfo.put("nickname", nickname);
 			userInfo.put("email", email);
-			System.out.println(userInfo);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
