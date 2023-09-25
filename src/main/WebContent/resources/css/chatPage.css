@@ -64,6 +64,18 @@ a.logo {
     overflow-y: auto;
 }
 
+.no-room-message {
+    height: calc(100% - 44px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+span.chat-user {
+    font-size: 25px;
+    font-weight: bold;
+}
+
 .username {
     margin-left: 16px;
 }

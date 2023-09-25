@@ -33,10 +33,10 @@
         <img src="${pageContext.request.contextPath}/resources/image/mainImg1.png" width="100%"/>
     </div>
     <div class="img2">
-        <img src="${pageContext.request.contextPath}/resources/image/mainImg2.png" width="100%"/>
+        <img src="${pageContext.request.contextPath}/resources/image/main2.png" width="100%"/>
     </div>
     <div class="img3">
-        <img src="${pageContext.request.contextPath}/resources/image/mainImg3.png" width="100%"/>
+        <img src="${pageContext.request.contextPath}/resources/image/main3.png" width="100%"/>
     </div>
 </div>
 

@@ -57,7 +57,7 @@
     </update>
 
     <select id="search" parameterType="hashMap" resultType="int">
-        select count(*) from chatting_room where item_post_id=${postId} and buyer='${buyer}'
+        select count(*) from chatting_room where item_post_id=${postId} and buyer='${buyer}' and status = 3
     </select>
 
     <insert id="createRoom" parameterType="com.carrot.domain.ChatRoomVO">

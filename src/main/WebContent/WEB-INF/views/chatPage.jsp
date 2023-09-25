@@ -27,27 +27,34 @@
     <div class="section">
       <div class="room-container" id="roomArea">
         <h2 class="username" id="userName" userId="${userId}">${username}</h2>
-        <c:forEach items="${rooms}" var="room">
-          <div class="chat-room" roomId="${room.id}" onclick="sendRoomChange(${room.id})">
-            <div class="chat-room-header">
-              <span class="chat-user">
-                <c:choose>
-                  <c:when test="${username eq room.buyerName}">${room.sellerName}</c:when>
-                  <c:when test="${username eq room.sellerName}">${room.buyerName}</c:when>
-                </c:choose>
-              </span>
-              <span class="last-message-time">
-                <fmt:formatDate pattern="MM/dd HH:mm" value="${room.lastMessage.createdAt}"/>
-              </span>
-            </div>
-            <div class="chat-room-content">
-              <span class="last-message">${room.lastMessage.content}</span>
-              <c:if test="${room.unReadCnt != 0}">
-                <span class="badge bg-danger float-end unReadCnt">${room.unReadCnt}</span>
-              </c:if>
-            </div>
+        <c:if test="${fn:length(rooms) == 0}">
+          <div class="no-room-message">
+            <span class="chat-user">생성된 채팅방이 없습니다.</span>
           </div>
-        </c:forEach>
+        </c:if>
+        <c:if test="${fn:length(rooms) != 0}">
+          <c:forEach items="${rooms}" var="room">
+            <div class="chat-room" roomId="${room.id}" onclick="sendRoomChange(${room.id})">
+              <div class="chat-room-header">
+                <span class="chat-user">
+                  <c:choose>
+                    <c:when test="${username eq room.buyerName}">${room.sellerName}</c:when>
+                    <c:when test="${username eq room.sellerName}">${room.buyerName}</c:when>
+                  </c:choose>
+                </span>
+                <span class="last-message-time">
+                  <fmt:formatDate pattern="MM/dd HH:mm" value="${room.lastMessage.createdAt}"/>
+                </span>
+              </div>
+              <div class="chat-room-content">
+                <span class="last-message">${room.lastMessage.content}</span>
+                <c:if test="${room.unReadCnt != 0}">
+                  <span class="badge bg-danger float-end unReadCnt">${room.unReadCnt}</span>
+                </c:if>
+              </div>
+            </div>
+          </c:forEach>
+        </c:if>
       </div>
       <div class="chat-container" roomId="
       <c:if test="${fn:length(rooms) == 0}">-1</c:if>
